@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Course from "./Course/Course";
+import { useState } from "react";
+
+function getRandomCourse(params) {
+  const courseArray = ["Angular", "Bootstrap", "Ccsharp", "KompleWeb"];
+  return courseArray[Math.floor(Math.random() * courseArray.length)];
+}
 
 function App() {
+  const [courses, setcourses] = useState([]);
+
+  const handleClick = () => {
+    setcourses([...courses, getRandomCourse()]);
+  };
+
+  const courseList = courses.map((course, index) => {
+    return <Course key={index} courseName={course} />;
+  });
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button className="appButton" onClick={handleClick}>
+        Kurs Ekle
+      </button>
+      <div className="courseList">{courseList}</div>
     </div>
   );
 }
